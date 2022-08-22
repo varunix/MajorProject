@@ -1,3 +1,17 @@
 module.exports.profile = function(req, res) {
-    res.end('<h1>User Profile</h1>');
-}
+    return res.render('user_profile', {
+        title: 'User Profile'
+    });
+};
+
+module.exports.signUp = function(req, res) {
+    res.render('user_sign_up', {
+        title: "Codeial | Sign Up"
+    });
+};
+
+module.exports.signIn = function(req, res) {
+    res.render('user_sign_in', {
+        title: "Codeial | Sign In"
+    });
+};
