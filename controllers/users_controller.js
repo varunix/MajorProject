@@ -51,7 +51,7 @@ module.exports.create = function(req, res) {
                     console.log('error in creating user while signing'); return;
                 }
 
-                res.redirect('/users/sign-in');
+                return res.redirect('/users/sign-in');
             });
         }
         else {
