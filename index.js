@@ -1,15 +1,18 @@
 const express = require('express');
 const app = express();
 const port = 8000;
+const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./configs/mongoose');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const passportLocal = require('./configs/passport-local-strategy');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 app.use(express.static('./assets'));
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(expressLayouts);
@@ -24,11 +27,19 @@ app.use(session({
     resave: false,
     cookie: {
         maxAge: (1000 * 60 * 100)
-    }
+    },
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/codeial_development',
+        autoRemove: 'disabled'
+    },
+    function(err){
+        console.log(err || 'connect-mongod setup ok')
+    })
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.setAuthenticatedUser);
 
 //use express router
 app.use('/', require('./routes'));
