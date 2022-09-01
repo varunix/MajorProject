@@ -9,11 +9,19 @@ const passport = require('passport');
 const passportLocal = require('./configs/passport-local-strategy');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const sassMiddleware = require('node-sass-middleware');
+
+
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css'
+}));
 
 app.use(express.static('./assets'));
-
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(expressLayouts);
 // extract style and scripts from sub pages into the layout
