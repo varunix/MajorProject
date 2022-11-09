@@ -9,7 +9,7 @@ module.exports.profile = function(req, res) {
             profile_user: user
         });
     });
-}
+};
 
 module.exports.update = async function(req, res) {
 
@@ -46,7 +46,7 @@ module.exports.update = async function(req, res) {
         req.flash('error', 'Unauthorized');
         return res.status(401).send('Unauthorized');
     }
-}
+};
 
 //render the sign up page
 module.exports.signUp = function(req, res) {

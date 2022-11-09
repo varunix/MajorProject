@@ -8,19 +8,19 @@ let transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'varun',
-        pass: 'varun@11'
+        user: process.env.user,
+        pass: process.env.pass
     }
 });
 
 let renderTemplate = (data, relativePath) => {
     let mailHTML;
     ejs.renderFile(
-        path.join(__dirname, '..views/mailers', relativePath),
+        path.join(__dirname, '../views/mailers', relativePath),
         data,
         function(err, template) {
             if(err) {
-                console.log('error in rendering template');
+                console.log('error in rendering template', err);
                 return;
             }
 

@@ -5,6 +5,7 @@ const commentMailer = require('../mailers/comments_mailer');
 module.exports.create = async function(req, res) {
     try {
         let post = await Post.findById(req.body.post);
+        console.log('begin');
 
         if (post){
             let comment = await Comment.create({
@@ -12,12 +13,13 @@ module.exports.create = async function(req, res) {
                 post: req.body.post,
                 user: req.user._id
             });
-
             post.comments.push(comment);
             post.save();
-
-            comment = await comment.populate('user', 'name email').execPopulate();
+            
+            comment = await comment.populate([{path:'user', select:'name email'}]);
+            console.log('flag1');
             commentMailer.newComment(comment);
+            console.log('intermediate');
 
             if(req.xhr) {
                 return res.status(200).json({
@@ -28,14 +30,15 @@ module.exports.create = async function(req, res) {
                 });
             }
 
+            console.log('end');
             req.flash('success', 'Comment published');
-
-            res.redirect('/');
+            return res.redirect('back');
         }
     }
 
     catch(err) {
         req.flash('Error', err);
+        console.log(err);
         return;
     }
 }
@@ -43,6 +46,7 @@ module.exports.create = async function(req, res) {
 module.exports.destroy = async function(req, res) {
     try {
         let comment = await Comment.findById(req.params.id);
+        
         if(comment.user == req.user.id) {
 
             let postId = comment.post;

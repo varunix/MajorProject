@@ -48,6 +48,7 @@ module.exports.destroy = async function(req, res) {
             
             return res.redirect('back');
         }
+        
         else {
             req.flash('error', 'You cannot delete this post!');
             return res.redirect('back');
