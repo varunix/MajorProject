@@ -23,12 +23,7 @@ module.exports.create = async function(req, res) {
                 if(err) {
                     console.log('error in creating a queue');
                 }
-
-                console.log('job enqueued', job.id);
-            })
-
-            commentMailer.newComment(comment);
-
+            });
 
             if(req.xhr) {
                 return res.status(200).json({
@@ -39,7 +34,6 @@ module.exports.create = async function(req, res) {
                 });
             }
 
-            console.log('end');
             req.flash('success', 'Comment published');
             return res.redirect('back');
         }
