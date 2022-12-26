@@ -15,9 +15,16 @@ const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./configs/middleware');
+const io = require('socket.io');
 const { config } = require('dotenv');
 
 config();
+
+//setup the chat server to be used with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./configs/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('Chat server is listening on port 5000');
 
 app.use(sassMiddleware({
     src: './assets/scss',

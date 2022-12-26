@@ -39,6 +39,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "redis-cli": "^2.1.2",
-    "redis-server": "^1.2.2"
+    "redis-server": "^1.2.2",
+    "socket.io": "^4.5.4"
   }
 }
