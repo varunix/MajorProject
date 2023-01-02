@@ -3,3 +3,6 @@ This is a social post app where user can authenticate and post whatever they're 
 
 #Technologies:
 Nodejs is used for both backend and frontend.
+Socket.io is used for chat.
+Mongoose is used for database.
+View Engine is used for rendering.
